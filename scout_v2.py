@@ -1,0 +1,57 @@
+import requests
+import time
+
+# YOUR DISCORD WEBHOOK
+WEBHOOK_URL = "https://discordapp.com/api/webhooks/1499810972012122132/99EgCU9XCmqq7PUf4nisursx2ACNy51NnX0WfZgb52TdwS5fvEajStDYJarcEpvEhIZx"
+
+# The keywords that equal R1k/month leads
+KEYWORDS = ["convert png", "png to jpg", "pdf to docx", "text to pdf", "convert file", "assignment pdf"]
+
+# List of subreddits to monitor
+SUBREDDITS = ["techsupport", "software", "students", "school", "editing"]
+
+def alert_discord(title, reddit_url):
+    payload = {
+        "content": f"🚀 **AETHER LEAD DETECTED (NO-API)**\n**User Issue:** {title}\n**Link:** https://reddit.com{reddit_url}"
+    }
+    requests.post(WEBHOOK_URL, json=payload)
+
+def scan_reddit():
+    print("Aether Scout V2 (Keyless) is scanning for digital matter...")
+    
+    # We store seen IDs so we don't ping your phone for the same post twice
+    seen_posts = set()
+
+    while True:
+        for sub in SUBREDDITS:
+            try:
+                # Adding .json to the URL gets us the raw data without an API key
+                url = f"https://www.reddit.com/r/{sub}/new.json?limit=10"
+                headers = {'User-agent': 'AetherScout v2.0'}
+                response = requests.get(url, headers=headers).json()
+
+                posts = response['data']['children']
+                
+                for post in posts:
+                    post_data = post['data']
+                    post_id = post_data['id']
+                    title = post_data['title'].lower()
+                    permalink = post_data['permalink']
+
+                    if post_id not in seen_posts:
+                        if any(key in title for key in KEYWORDS):
+                            print(f"Match found in r/{sub}: {post_data['title']}")
+                            alert_discord(post_data['title'], permalink)
+                        seen_posts.add(post_id)
+
+            except Exception as e:
+                print(f"Connection glitch on r/{sub}: {e}")
+            
+            # Brief pause between subreddits to stay under the radar
+            time.sleep(2) 
+        
+        print("Cycle complete. Cooling down for 60 seconds...")
+        time.sleep(60) # Scan every minute
+
+if __name__ == "__main__":
+    scan_reddit()
