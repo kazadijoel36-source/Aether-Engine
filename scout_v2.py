@@ -30,7 +30,7 @@ def scan_reddit():
             try:
                 # Adding .json to the URL gets us the raw data without an API key
                 url = f"https://www.reddit.com/r/{sub}/new.json?limit=10"
-                headers = {'User-agent': 'AetherScout v2.0'}
+                headers = {'User-agent': 'AetherBot_v2_By_Jackson12_Potch'}
                 response = requests.get(url, headers=headers).json()
 
                 posts = response['data']['children']
@@ -51,7 +51,7 @@ def scan_reddit():
                 print(f"Connection glitch on r/{sub}: {e}")
             
             # Brief pause between subreddits to stay under the radar
-            time.sleep(2) 
+            time.sleep(5) 
         
         print("Cycle complete. Cooling down for 60 seconds...")
         time.sleep(60) # Scan every minute
