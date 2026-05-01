@@ -21,19 +21,29 @@ def alert_discord(title, reddit_url):
 
 def scan_reddit():
     print("Aether Scout V2 (Keyless) is scanning for digital matter...")
-    
-    # We store seen IDs so we don't ping your phone for the same post twice
     seen_posts = set()
 
     while True:
         for sub in SUBREDDITS:
             try:
-                # Adding .json to the URL gets us the raw data without an API key
                 url = f"https://www.reddit.com/r/{sub}/new.json?limit=10"
-                headers = {'User-agent': 'AetherBot_v2_By_Jackson12_Potch'}
-                response = requests.get(url, headers=headers).json()
+                # This expanded header mimics a real Chrome browser on Windows
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'application/json',
+                    'Accept-Language': 'en-US,en;q=0.5',
+                }
+                
+                response = requests.get(url, headers=headers)
+                
+                # Add this check to see exactly what Reddit is saying
+                if response.status_code != 200:
+                    print(f"Reddit blocked r/{sub} with Status: {response.status_code}")
+                    continue
 
-                posts = response['data']['children']
+                data = response.json()
+                posts = data['data']['children']
+                # ... rest of your code ...
                 
                 for post in posts:
                     post_data = post['data']
