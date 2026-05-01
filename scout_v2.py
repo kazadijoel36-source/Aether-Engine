@@ -1,70 +1,96 @@
 import requests
 import time
+import random
 
-# YOUR DISCORD WEBHOOK
+# ================= CONFIGURATION =================
 WEBHOOK_URL = "https://discordapp.com/api/webhooks/1499810972012122132/99EgCU9XCmqq7PUf4nisursx2ACNy51NnX0WfZgb52TdwS5fvEajStDYJarcEpvEhIZx"
 
 # The keywords that equal R1k/month leads
-KEYWORDS = ["convert png", "png to jpg", "pdf to docx", "text to pdf", "convert file", "assignment pdf", "homework pdf", "edit pdf", "pdf editor", "pdf converter", "jpg to png", "jpeg to png", "png to jpeg", "pdf to word", "txt to pdf", "thesis pdf", "research paper pdf", "essay pdf", "report pdf", "pdf formatting", "pdf layout", "pdf to doc", "doc to pdf", "pdf to text", "text to pdf", "pdf merge", "pdf split", "pdf compress", "pdf resize",]
+KEYWORDS = [
+    "convert png", "png to jpg", "pdf to docx", "text to pdf", 
+    "convert file", "assignment pdf", "homework pdf", "edit pdf", 
+    "pdf editor", "pdf converter", "jpg to png", "pdf to word", 
+    "pdf merge", "pdf split", "pdf compress"
+]
 
-# List of subreddits to monitor
 SUBREDDITS = ["techsupport", "software", "students", "school", "editing"]
 
+MY_APP_URL = "https://aether-engine.up.railway.app/"
+# =================================================
+
 def alert_discord(title, reddit_url):
-    # CHANGE THIS TO YOUR NEW RAILWAY URL
-    my_app_url = "https://aether-engine.up.railway.app/" 
+    # Rotating human-sounding templates
+    templates = [
+        f"Hey! I'm an IT student and I actually built a free tool for this since I hate ads. Check it out: {MY_APP_URL}",
+        f"I had this exact issue last week. I made a quick web app to solve it, it's free and works in-browser: {MY_APP_URL}",
+        f"If you're still looking for a way to do this, I built a 'tactical' tool for my portfolio that handles this: {MY_APP_URL}",
+        f"I actually developed a site that does this for free because I needed it for my own assignments. Hope it helps! {MY_APP_URL}"
+    ]
+    
+    suggested_reply = random.choice(templates)
     
     payload = {
-        "content": f"🚀 **AETHER LEAD DETECTED**\n**Issue:** {title}\n**Link:** https://reddit.com{reddit_url}\n**Send them here:** {my_app_url}"
+        "content": (
+            f"🚀 **AETHER LEAD DETECTED**\n"
+            f"**Issue:** {title}\n"
+            f"**Link:** https://reddit.com{reddit_url}\n\n"
+            f"**📋 COPY & PASTE THIS REPLY:**\n"
+            f"```{suggested_reply}```"
+        )
     }
-    requests.post(WEBHOOK_URL, json=payload)
+    try:
+        requests.post(WEBHOOK_URL, json=payload)
+    except Exception as e:
+        print(f"Discord Webhook Error: {e}")
 
-def scan_reddit():
-    print("Aether Scout V2 (Keyless) is scanning for digital matter...")
-    seen_posts = set()
+def run_digest():
+    print(f"\n[{time.strftime('%H:%M:%S')}] Aether Engine: Generating 24-Hour Lead Digest...")
+    
+    # We use a set to avoid sending the same post twice if it appears in different searches
+    seen_in_this_run = set()
 
-    while True:
-        for sub in SUBREDDITS:
-            try:
-                url = f"https://www.reddit.com/r/{sub}/new.json?limit=10"
-                # This expanded header mimics a real Chrome browser on Windows
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    'Accept': 'application/json',
-                    'Accept-Language': 'en-US,en;q=0.5',
-                }
-                
-                response = requests.get(url, headers=headers)
-                
-                # Add this check to see exactly what Reddit is saying
-                if response.status_code != 200:
-                    print(f"Reddit blocked r/{sub} with Status: {response.status_code}")
-                    continue
-
+    for sub in SUBREDDITS:
+        try:
+            # We search for our keywords using the 'OR' operator to get everything at once
+            query = " OR ".join(f'"{key}"' for key in KEYWORDS)
+            url = f"https://www.reddit.com/r/{sub}/search.json?q={query}&restrict_sr=on&t=day&sort=new&limit=25"
+            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+                'Accept': 'application/json'
+            }
+            
+            response = requests.get(url, headers=headers)
+            
+            if response.status_code == 200:
                 data = response.json()
                 posts = data['data']['children']
-                # ... rest of your code ...
                 
+                if not posts:
+                    print(f" -> No new matches in r/{sub}")
+                    continue
+
                 for post in posts:
-                    post_data = post['data']
-                    post_id = post_data['id']
-                    title = post_data['title'].lower()
-                    permalink = post_data['permalink']
+                    pdata = post['data']
+                    pid = pdata['id']
+                    
+                    if pid not in seen_in_this_run:
+                        print(f" [+] Match found in r/{sub}: {pdata['title']}")
+                        alert_discord(pdata['title'], pdata['permalink'])
+                        seen_in_this_run.add(pid)
+                        time.sleep(1) # Small delay to avoid Discord spam
+            else:
+                print(f" [!] Reddit blocked r/{sub} (Status {response.status_code})")
 
-                    if post_id not in seen_posts:
-                        if any(key in title for key in KEYWORDS):
-                            print(f"Match found in r/{sub}: {post_data['title']}")
-                            alert_discord(post_data['title'], permalink)
-                        seen_posts.add(post_id)
-
-            except Exception as e:
-                print(f"Connection glitch on r/{sub}: {e}")
+        except Exception as e:
+            print(f" [X] Error scanning r/{sub}: {e}")
             
-            # Brief pause between subreddits to stay under the radar
-            time.sleep(5) 
-        
-        print("Cycle complete. Cooling down for 60 seconds...")
-        time.sleep(60) # Scan every minute
+        time.sleep(3) # Stay under the radar between subreddits
+
+    print(f"[{time.strftime('%H:%M:%S')}] Digest complete. Sleeping for 1 hour...")
 
 if __name__ == "__main__":
-    scan_reddit()
+    while True:
+        run_digest()
+        # We wait 1 hour between "Deep Searches" to keep the IP safe
+        time.sleep(3600)
