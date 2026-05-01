@@ -1,153 +1,258 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ seo.title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #020202; color: #888; font-family: 'Inter', sans-serif; }
-        .hero-glow { background: radial-gradient(circle at 50% -20%, #1a1033 0%, #020202 70%); }
-        .glass { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-        .btn-purple { background: #6d28d9; color: white; transition: all 0.3s ease; }
-        .btn-purple:hover { background: #7c3aed; box-shadow: 0 0 20px rgba(109, 40, 217, 0.4); }
-        /* FORCE FOOTER TO BOTTOM */
-.site-footer {
-    width: 100%;
-    padding: 20px 0;
-    background: rgba(0, 0, 0, 0.8);
-    border-top: 1px solid #333;
-    text-align: center;
-    position: relative; /* Changed from fixed to stay at end of flow */
-    margin-top: 50px;
-    z-index: 100;
-}
+      body {
+        background: #020202;
+        color: #888;
+        font-family: "Inter", sans-serif;
+      }
+      .hero-glow {
+        background: radial-gradient(
+          circle at 50% -20%,
+          #1a1033 0%,
+          #020202 70%
+        );
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
+      .btn-purple {
+        background: #6d28d9;
+        color: white;
+        transition: all 0.3s ease;
+      }
+      .btn-purple:hover {
+        background: #7c3aed;
+        box-shadow: 0 0 20px rgba(109, 40, 217, 0.4);
+      }
+      /* FORCE FOOTER TO BOTTOM */
+      .site-footer {
+        width: 100%;
+        padding: 20px 0;
+        background: rgba(0, 0, 0, 0.8);
+        border-top: 1px solid #333;
+        text-align: center;
+        position: relative; /* Changed from fixed to stay at end of flow */
+        margin-top: 50px;
+        z-index: 100;
+      }
 
-.site-footer a {
-    color: #888;
-    margin: 0 15px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif; /* Matching your theme */
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
+      .site-footer a {
+        color: #888;
+        margin: 0 15px;
+        text-decoration: none;
+        font-family: "Inter", sans-serif; /* Matching your theme */
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
 
-.site-footer a:hover {
-    color: #fff; /* Neon glow effect for links */
-}
+      .site-footer a:hover {
+        color: #fff; /* Neon glow effect for links */
+      }
     </style>
-</head>
-<body class="hero-glow min-h-screen">
-
+  </head>
+  <body class="hero-glow min-h-screen">
     <!-- NAVIGATION: Added for longer experience -->
-    <nav class="w-full py-6 px-8 flex justify-between items-center border-b border-white/5">
-        <div class="flex items-center gap-8">
-            <span class="text-white font-bold tracking-tighter text-xl">AETHER</span>
-            <div class="hidden md:flex gap-6 text-[10px] uppercase tracking-widest font-medium">
-                <a href="/" class="text-white">Transcoder</a>
-                <a href="/about" class="hover:text-white transition-colors">Documentation</a>
-                <a href="#" class="hover:text-white transition-colors">Privacy Logic</a>
-            </div>
+    <nav
+      class="w-full py-6 px-8 flex justify-between items-center border-b border-white/5"
+    >
+      <div class="flex items-center gap-8">
+        <span class="text-white font-bold tracking-tighter text-xl"
+          >AETHER</span
+        >
+        <div
+          class="hidden md:flex gap-6 text-[10px] uppercase tracking-widest font-medium"
+        >
+          <a href="/" class="text-white">Transcoder</a>
+          <a href="/about" class="hover:text-white transition-colors"
+            >Documentation</a
+          >
+          <a href="#" class="hover:text-white transition-colors"
+            >Privacy Logic</a
+          >
         </div>
-        <a href="https://buymeacoffee.com" class="text-[10px] border border-white/10 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-widest">Support Project</a>
+      </div>
+      <a
+        href="https://buymeacoffee.com"
+        class="text-[10px] border border-white/10 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-widest"
+        >Support Project</a
+      >
     </nav>
 
     <!-- AD SLOT: TOP -->
-    <div class="max-w-4xl mx-auto my-8 h-24 glass flex items-center justify-center text-[10px] tracking-[0.5em] opacity-30">ADVERTISEMENT</div>
+    <div
+      class="max-w-4xl mx-auto my-8 h-24 glass flex items-center justify-center text-[10px] tracking-[0.5em] opacity-30"
+    >
+      ADVERTISEMENT
+    </div>
 
     <main class="max-w-4xl mx-auto pt-20 px-6 text-center">
-        <h2 class="text-6xl md:text-8xl text-white font-bold tracking-tighter mb-8">{{ seo.h1 | safe }}</h2>
-        
-        <!-- STEP INDICATOR: Makes the experience feel structural -->
-        <div class="flex justify-center gap-4 mb-12">
-            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span><span class="text-[9px] uppercase tracking-widest text-purple-400">Upload</span></div>
-            <div class="w-8 h-[1px] bg-white/10 mt-1"></div>
-            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-white/10"></span><span class="text-[9px] uppercase tracking-widest">Process</span></div>
-            <div class="w-8 h-[1px] bg-white/10 mt-1"></div>
-            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-white/10"></span><span class="text-[9px] uppercase tracking-widest">Extract</span></div>
-        </div>
+      <h2
+        class="text-6xl md:text-8xl text-white font-bold tracking-tighter mb-8"
+      >
+        {{ seo.h1 | safe }}
+      </h2>
 
-        <!-- UPLOAD ZONE -->
-        <div id="drop-zone" class="glass rounded-[40px] p-16 mb-12 cursor-pointer group hover:border-purple-500/50 transition-all duration-700">
-            <form id="upload-form" action="/transcode" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" id="file-input" class="hidden">
-                <div id="status-text">
-                    <div class="text-4xl text-white/20 mb-6 group-hover:scale-110 group-hover:text-purple-500 transition-all duration-700">＋</div>
-                    <h3 class="text-white text-xl font-medium mb-2">Initiate Pulse</h3>
-                    <p class="text-xs uppercase tracking-widest text-gray-600">Select matter for transmutation</p>
-                </div>
-                
-                <div class="mt-12 flex flex-col items-center gap-4">
-                    <select name="format" class="bg-transparent border-b border-white/10 py-2 px-4 text-[10px] uppercase tracking-widest text-white focus:outline-none focus:border-purple-500">
-                        <option value="JPEG" class="bg-black">To JPEG</option>
-                        <option value="PNG" class="bg-black">To PNG</option>
-                        <option value="WEBP" class="bg-black">To WEBP</option>
-                        <option value="PDF" class="bg-black">Text to PDF</option>
-                    </select>
-                </div>
+      <!-- STEP INDICATOR: Makes the experience feel structural -->
+      <div class="flex justify-center gap-4 mb-12">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-500"></span
+          ><span class="text-[9px] uppercase tracking-widest text-purple-400"
+            >Upload</span
+          >
+        </div>
+        <div class="w-8 h-[1px] bg-white/10 mt-1"></div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white/10"></span
+          ><span class="text-[9px] uppercase tracking-widest">Process</span>
+        </div>
+        <div class="w-8 h-[1px] bg-white/10 mt-1"></div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white/10"></span
+          ><span class="text-[9px] uppercase tracking-widest">Extract</span>
+        </div>
+      </div>
+
+      <!-- UPLOAD ZONE -->
+      <div
+        id="drop-zone"
+        class="glass rounded-[40px] p-16 mb-12 cursor-pointer group hover:border-purple-500/50 transition-all duration-700"
+      >
+        <form
+          id="upload-form"
+          action="/transcode"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <input type="file" name="file" id="file-input" class="hidden" />
+          <div id="status-text">
+            <div
+              class="text-4xl text-white/20 mb-6 group-hover:scale-110 group-hover:text-purple-500 transition-all duration-700"
+            >
+              ＋
+            </div>
+            <h3 class="text-white text-xl font-medium mb-2">Initiate Pulse</h3>
+            <p class="text-xs uppercase tracking-widest text-gray-600">
+              Select matter for transmutation
+            </p>
+          </div>
+
+          <div class="tool-card">
+            <h3>PDF Merger</h3>
+            <p>Combine multiple PDFs into one tactical file.</p>
+            <form
+              action="/merge-pdf"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input type="file" name="files" accept=".pdf" multiple required />
+              <button type="submit" class="btn">Merge Files</button>
             </form>
-        </div>
+          </div>
 
-        <!-- AD SLOT: BOTTOM -->
-        <div class="glass h-64 mb-24 flex items-center justify-center text-[10px] tracking-[0.5em] opacity-30">ADVERTISEMENT SPACE</div>
+          <div class="mt-12 flex flex-col items-center gap-4">
+            <select
+              name="format"
+              class="bg-transparent border-b border-white/10 py-2 px-4 text-[10px] uppercase tracking-widest text-white focus:outline-none focus:border-purple-500"
+            >
+              <option value="JPEG" class="bg-black">To JPEG</option>
+              <option value="PNG" class="bg-black">To PNG</option>
+              <option value="WEBP" class="bg-black">To WEBP</option>
+              <option value="PDF" class="bg-black">Text to PDF</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!-- AD SLOT: BOTTOM -->
+      <div
+        class="glass h-64 mb-24 flex items-center justify-center text-[10px] tracking-[0.5em] opacity-30"
+      >
+        ADVERTISEMENT SPACE
+      </div>
     </main>
 
-    <footer class="border-t border-white/5 py-20 px-8 grid grid-cols-2 md:grid-cols-4 gap-12 max-w-6xl mx-auto">
-        <div>
-            <h4 class="text-white text-[10px] uppercase tracking-[0.3em] mb-6">Engine</h4>
-            <ul class="text-[10px] space-y-3 uppercase tracking-widest">
-                <li><a href="#" class="hover:text-white">Status</a></li>
-                <li><a href="#" class="hover:text-white">Latency</a></li>
-            </ul>
-        </div>
-        <!-- Add more columns to make the page look 'deep' -->
+    <footer
+      class="border-t border-white/5 py-20 px-8 grid grid-cols-2 md:grid-cols-4 gap-12 max-w-6xl mx-auto"
+    >
+      <div>
+        <h4 class="text-white text-[10px] uppercase tracking-[0.3em] mb-6">
+          Engine
+        </h4>
+        <ul class="text-[10px] space-y-3 uppercase tracking-widest">
+          <li><a href="#" class="hover:text-white">Status</a></li>
+          <li><a href="#" class="hover:text-white">Latency</a></li>
+        </ul>
+      </div>
+      <!-- Add more columns to make the page look 'deep' -->
     </footer>
 
     <script>
-        const zone = document.getElementById('drop-zone');
-        const input = document.getElementById('file-input');
-        const form = document.getElementById('upload-form');
-        const status = document.getElementById('status-text');
+      const zone = document.getElementById("drop-zone");
+      const input = document.getElementById("file-input");
+      const form = document.getElementById("upload-form");
+      const status = document.getElementById("status-text");
 
-        zone.onclick = () => input.click();
-        
-        zone.ondragover = (e) => { e.preventDefault(); zone.style.borderColor = "#6d28d9"; };
-        zone.ondragleave = () => { zone.style.borderColor = ""; };
-        
-        zone.ondrop = (e) => {
-            e.preventDefault();
-            const files = e.dataTransfer.files;
-            if(files.length) handleUpload(files[0]);
-        };
+      zone.onclick = () => input.click();
 
-        input.onchange = () => { if(input.files.length) handleUpload(input.files[0]); };
+      zone.ondragover = (e) => {
+        e.preventDefault();
+        zone.style.borderColor = "#6d28d9";
+      };
+      zone.ondragleave = () => {
+        zone.style.borderColor = "";
+      };
 
-        function handleUpload(file) {
-            if(file.size > 10*1024*1024) return alert("Limit 10MB");
-            
-            // AD REVENUE DELAY: Make them look at the ads
-            status.innerHTML = `
+      zone.ondrop = (e) => {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        if (files.length) handleUpload(files[0]);
+      };
+
+      input.onchange = () => {
+        if (input.files.length) handleUpload(input.files[0]);
+      };
+
+      function handleUpload(file) {
+        if (file.size > 10 * 1024 * 1024) return alert("Limit 10MB");
+
+        // AD REVENUE DELAY: Make them look at the ads
+        status.innerHTML = `
                 <div class="w-12 h-12 border-2 border-purple-500 border-t-transparent animate-spin rounded-full mx-auto mb-6"></div>
                 <h3 class="text-white text-xl font-medium mb-2">Analyzing Matter...</h3>
                 <p class="text-xs uppercase tracking-widest text-purple-400">Stability Check in Progress</p>
             `;
-            
-            setTimeout(() => {
-                form.submit();
-            }, 4000); // 4 Seconds ensures AdSense viewability
-        }
+
+        setTimeout(() => {
+          form.submit();
+        }, 4000); // 4 Seconds ensures AdSense viewability
+      }
     </script>
     <!-- SIMPLE NAV FOOTER -->
-<footer class="site-footer">
-    <nav>
+    <footer class="site-footer">
+      <nav>
         <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
-    </nav>
-    <p style="color: #444; font-size: 0.7rem; margin-top: 10px; letter-spacing: 1px;">
+      </nav>
+      <p
+        style="
+          color: #444;
+          font-size: 0.7rem;
+          margin-top: 10px;
+          letter-spacing: 1px;
+        "
+      >
         &copy; 2026 AETHER CONVERTE | SYSTEM STATUS: OPERATIONAL
-    </p>
-</footer>
-</body>
+      </p>
+    </footer>
+  </body>
 </html>

@@ -3,6 +3,7 @@ import io
 import uuid
 from flask import Flask, render_template, request, send_file, redirect, url_for, session
 from PIL import Image
+from PyPDF2 import PdfWriter
 from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
@@ -19,6 +20,33 @@ SEO_CONFIG = {
     'pdf-to-docx': {'title': 'Convert PDF to Word | Aether', 'h1': 'PDF to Word'},
     'txt-to-pdf': {'title': 'Convert Text to PDF | Aether', 'h1': 'Text to PDF'}
 }
+
+@app.route('/merge-pdf', methods=['POST'])
+def merge_pdf():
+    if 'files' not in request.files:
+        return "No files uploaded", 400
+    
+    files = request.files.getlist('files')
+    if not files or files[0].filename == '':
+        return "No files selected", 400
+
+    merger = PdfWriter()
+    
+    try:
+        for file in files:
+            if file.filename.endswith('.pdf'):
+                merger.append(file)
+        
+        output_path = "merged_document.pdf"
+        with open(output_path, "wb") as f_out:
+            merger.write(f_out)
+        
+        return send_file(output_path, as_attachment=True)
+    
+    except Exception as e:
+        return f"Error merging PDFs: {e}", 500
+    finally:
+        merger.close()
 
 @app.errorhandler(413)
 def file_too_large(error):
