@@ -1,75 +1,76 @@
 :root {
     --bg-color: #050505;
-    --card-bg: rgba(20, 20, 23, 0.8);
+    --card-bg: #0d0d0f;
     --accent: #00ff9d;
-    --accent-glow: rgba(0, 255, 157, 0.3);
     --text-main: #ffffff;
-    --border-color: #1a1a1c;
 }
 
 body {
     background-color: var(--bg-color);
-    background-image: 
-        radial-gradient(circle at 50% 50%, #111 0%, #050505 100%),
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 100%, 100% 2px, 3px 100%;
     color: var(--text-main);
-    font-family: 'Courier New', Courier, monospace; /* More tactical/coder vibe */
+    font-family: 'Courier New', monospace;
     margin: 0;
 }
 
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+/* The Card */
 .tool-card {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--accent);
-    box-shadow: 0 0 20px var(--accent-glow);
     padding: 40px;
-    border-radius: 2px; /* Sharper corners look more tactical */
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
 }
 
-/* The "Scanning" Line Effect */
-.tool-card::after {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: 0;
+/* Force Dark Inputs */
+input[type="file"], .tactical-select {
     width: 100%;
-    height: 2px;
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
-    animation: scan 4s linear infinite;
-    opacity: 0.5;
+    background: #000;
+    border: 1px solid #333;
+    color: var(--accent);
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
 }
 
-@keyframes scan {
-    0% { top: -100%; }
-    100% { top: 200%; }
-}
-
-.btn-execute {
-    background: transparent;
+/* Style the "Choose File" button specifically */
+input[type="file"]::file-selector-button {
+    background: #111;
     color: var(--accent);
     border: 1px solid var(--accent);
+    padding: 5px 10px;
+    cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    font-size: 0.7rem;
+}
+
+/* Execute Button */
+.btn-execute {
+    width: 100%;
+    margin-top: 30px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 15px;
     font-weight: bold;
-    padding: 20px;
-    transition: 0.4s;
-    box-shadow: inset 0 0 0px var(--accent-glow);
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn-execute:hover {
     background: var(--accent);
-    color: black;
-    box-shadow: 0 0 30px var(--accent);
-    cursor: crosshair;
+    color: #000;
 }
 
-.step-label {
-    letter-spacing: 2px;
-    border-left: 3px solid var(--accent);
-    padding-left: 10px;
+/* Diagnostics at bottom */
+.system-logs {
+    margin-top: 30px;
+    font-size: 0.7rem;
+    color: #444;
+    text-transform: uppercase;
 }
