@@ -1,98 +1,75 @@
 :root {
-    --bg-color: #0a0a0c;
-    --card-bg: #141417;
+    --bg-color: #050505;
+    --card-bg: rgba(20, 20, 23, 0.8);
     --accent: #00ff9d;
-    --text-main: #e0e0e0;
-    --text-dim: #a0a0a0;
+    --accent-glow: rgba(0, 255, 157, 0.3);
+    --text-main: #ffffff;
+    --border-color: #1a1a1c;
 }
 
 body {
     background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 50% 50%, #111 0%, #050505 100%),
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 100%, 100% 2px, 3px 100%;
     color: var(--text-main);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace; /* More tactical/coder vibe */
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    flex: 1;
-}
-
-header {
-    border-bottom: 1px solid #333;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--accent);
 }
 
 .tool-card {
     background: var(--card-bg);
-    border: 1px solid #222;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+    padding: 40px;
+    border-radius: 2px; /* Sharper corners look more tactical */
+    position: relative;
+    overflow: hidden;
 }
 
-.step-box {
-    margin: 20px 0;
-}
-
-.step-label {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
-.tactical-select, input[type="file"] {
+/* The "Scanning" Line Effect */
+.tool-card::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
     width: 100%;
-    padding: 12px;
-    background: #1e1e22;
-    border: 1px solid #444;
-    color: white;
-    border-radius: 4px;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+    animation: scan 4s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes scan {
+    0% { top: -100%; }
+    100% { top: 200%; }
 }
 
 .btn-execute {
-    width: 100%;
-    padding: 15px;
-    background: var(--accent);
-    color: black;
-    border: none;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
+    padding: 20px;
+    transition: 0.4s;
+    box-shadow: inset 0 0 0px var(--accent-glow);
 }
 
 .btn-execute:hover {
-    background: #00cc7e;
-    transform: translateY(-2px);
+    background: var(--accent);
+    color: black;
+    box-shadow: 0 0 30px var(--accent);
+    cursor: crosshair;
 }
 
-.coffee-btn {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    border-top: 1px solid #222;
+.step-label {
+    letter-spacing: 2px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
 }
