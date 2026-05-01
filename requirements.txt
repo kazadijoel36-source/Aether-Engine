@@ -5,3 +5,4 @@ pdf2docx
 python-docx
 gunicorn
 requests
+PyPDF2
