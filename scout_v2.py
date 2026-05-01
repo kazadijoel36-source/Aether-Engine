@@ -11,8 +11,11 @@ KEYWORDS = ["convert png", "png to jpg", "pdf to docx", "text to pdf", "convert 
 SUBREDDITS = ["techsupport", "software", "students", "school", "editing"]
 
 def alert_discord(title, reddit_url):
+    # CHANGE THIS TO YOUR NEW RAILWAY URL
+    my_app_url = "https://aether-engine.up.railway.app/" 
+    
     payload = {
-        "content": f"🚀 **AETHER LEAD DETECTED (NO-API)**\n**User Issue:** {title}\n**Link:** https://reddit.com{reddit_url}"
+        "content": f"🚀 **AETHER LEAD DETECTED**\n**Issue:** {title}\n**Link:** https://reddit.com{reddit_url}\n**Send them here:** {my_app_url}"
     }
     requests.post(WEBHOOK_URL, json=payload)
 
