@@ -11,6 +11,30 @@
         .glass { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
         .btn-purple { background: #6d28d9; color: white; transition: all 0.3s ease; }
         .btn-purple:hover { background: #7c3aed; box-shadow: 0 0 20px rgba(109, 40, 217, 0.4); }
+        /* FORCE FOOTER TO BOTTOM */
+.site-footer {
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid #333;
+    text-align: center;
+    position: relative; /* Changed from fixed to stay at end of flow */
+    margin-top: 50px;
+    z-index: 100;
+}
+
+.site-footer a {
+    color: #888;
+    margin: 0 15px;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif; /* Matching your theme */
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.site-footer a:hover {
+    color: #fff; /* Neon glow effect for links */
+}
     </style>
 </head>
 <body class="hero-glow min-h-screen">
@@ -114,14 +138,16 @@
         }
     </script>
     <!-- SIMPLE NAV FOOTER -->
-<footer style="margin-top: 50px; padding: 20px; text-align: center; border-top: 1px solid #333;">
+<footer class="site-footer">
     <nav>
-        <a href="/" style="color: #888; margin: 0 15px; text-decoration: none;">Home</a>
-        <a href="/about" style="color: #888; margin: 0 15px; text-decoration: none;">About</a>
-        <a href="/privacy" style="color: #888; margin: 0 15px; text-decoration: none;">Privacy</a>
-        <a href="/terms" style="color: #888; margin: 0 15px; text-decoration: none;">Terms</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
     </nav>
-    <p style="color: #444; font-size: 0.8rem; margin-top: 10px;">&copy; 2026 Aether Converte - Built by an EDUVOS Student</p>
+    <p style="color: #444; font-size: 0.7rem; margin-top: 10px; letter-spacing: 1px;">
+        &copy; 2026 AETHER CONVERTE | SYSTEM STATUS: OPERATIONAL
+    </p>
 </footer>
 </body>
 </html>
