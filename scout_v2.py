@@ -5,7 +5,7 @@ import time
 WEBHOOK_URL = "https://discordapp.com/api/webhooks/1499810972012122132/99EgCU9XCmqq7PUf4nisursx2ACNy51NnX0WfZgb52TdwS5fvEajStDYJarcEpvEhIZx"
 
 # The keywords that equal R1k/month leads
-KEYWORDS = ["convert png", "png to jpg", "pdf to docx", "text to pdf", "convert file", "assignment pdf"]
+KEYWORDS = ["convert png", "png to jpg", "pdf to docx", "text to pdf", "convert file", "assignment pdf", "homework pdf", "edit pdf", "pdf editor", "pdf converter", "jpg to png", "jpeg to png", "png to jpeg", "pdf to word", "txt to pdf", "thesis pdf", "research paper pdf", "essay pdf", "report pdf", "pdf formatting", "pdf layout", "pdf to doc", "doc to pdf", "pdf to text", "text to pdf", "pdf merge", "pdf split", "pdf compress", "pdf resize"]
 
 # List of subreddits to monitor
 SUBREDDITS = ["techsupport", "software", "students", "school", "editing"]
