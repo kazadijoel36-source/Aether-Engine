@@ -4,3 +4,4 @@ reportlab
 pdf2docx
 python-docx
 gunicorn
+requests
