@@ -1,133 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aether Engine | Tactical File Transmutation</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <!-- Google AdSense Code Placeholder -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <header>
-      <div class="logo">AETHER // ENGINE</div>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/terms">Terms</a>
-      </nav>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Engine | All-in-One PDF Tools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 
-    <main class="container">
-      <section class="engine-bay">
-        <div class="tool-card">
-          <h2>Unified Transmuter</h2>
-          <p>Load your file first, then select the target conversion type.</p>
-
-          <form
-            action="/convert"
-            method="post"
-            enctype="multipart/form-data"
-            id="conversion-form"
-          >
-            <!-- STAGE 1: LOAD FILE -->
-            <div class="step-box">
-              <label for="file-upload" class="step-label"
-                >01 // LOAD MATTER</label
-              >
-              <div class="custom-file-input">
-                <input type="file" name="file" id="file-upload" required />
-              </div>
+    <!-- FLOATING pill menu -->
+    <nav class="floating-nav">
+        <div class="nav-content">
+            <div class="nav-logo">AETHER</div>
+            <div class="nav-links">
+                <a href="/about">About</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="/blog">Blog</a>
             </div>
-
-            <div class="step-divider"></div>
-
-            <!-- STAGE 2: SELECT STATE -->
-            <div class="step-box">
-              <label for="conversion-type" class="step-label"
-                >02 // SELECT TARGET STATE</label
-              >
-              <select
-                name="conversion_type"
-                id="conversion-type"
-                class="tactical-select"
-                required
-              >
-                <option value="" disabled selected>
-                  Select Transformation...
-                </option>
-                <optgroup label="PDF Tools">
-                  <option value="pdf_to_word">PDF to Word (.docx)</option>
-                  <option value="pdf_to_img">PDF to Image (.zip)</option>
-                  <option value="merge_pdf">Merge Multiple PDFs</option>
-                </optgroup>
-                <optgroup label="Image Tools">
-                  <option value="png_to_jpg">PNG to JPG</option>
-                  <option value="jpg_to_png">JPG to PNG</option>
-                  <option value="compress_img">Compress Image</option>
-                </optgroup>
-              </select>
-            </div>
-
-            <!-- STAGE 3: EXECUTE -->
-            <div class="action-area">
-              <button type="submit" class="btn-execute">
-                EXECUTE TRANSMUTATION
-              </button>
-            </div>
-          </form>
+            <a href="https://github.com" class="nav-btn-github">GitHub</a>
         </div>
-      </section>
+    </nav>
 
-      <!-- AdSense Slot -->
-      <section class="ad-container">
-        <p class="ad-label">ADVERTISEMENT</p>
-        <div class="ad-placeholder"></div>
-      </section>
+    <main class="hero-section">
+        <div class="badge">● 100% in your browser</div>
+        <h1>Every PDF tool you <span class="highlight">need.</span></h1>
+        <h2>Right in your browser.</h2>
+        <p class="hero-subtext">Merge, split, compress, and convert PDFs. Files never leave your device — all processing happens locally.</p>
     </main>
-    <section class="system-logs">
-      <div class="log-entry">> ENGINE_STATUS: ONLINE</div>
-      <div class="log-entry">> CORE_TEMP: STABLE</div>
-      <div class="log-entry">> UPTIME: 99.9%</div>
-      <div class="log-entry">> LOCATION: POTCHEFSTROOM_NODE_01</div>
+
+    <section class="tool-grid">
+        <!-- Unified Transmuter Card -->
+        <div class="tool-card main-tool">
+            <div class="card-header">
+                <div class="icon-box">⚡</div>
+                <h3>Unified Transmuter</h3>
+            </div>
+            <p>Load matter and select target state.</p>
+            
+            <form action="/convert" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" class="file-input" required>
+                <select name="conversion_type" class="dropdown-select" required>
+                    <option value="" disabled selected>Select Transformation...</option>
+                    <option value="pdf_to_word">PDF to Word</option>
+                    <option value="merge_pdf">Merge PDFs</option>
+                    <option value="png_to_jpg">PNG to JPG</option>
+                </select>
+                <button type="submit" class="execute-btn">Execute Transmutation</button>
+            </form>
+        </div>
+
+        <!-- Decorative placeholder cards to match the video layout -->
+        <div class="tool-card disabled">
+            <div class="icon-box red">⊞</div>
+            <h3>Merge PDF</h3>
+            <p>Combine PDFs in any order.</p>
+        </div>
+        
+        <div class="tool-card disabled">
+            <div class="icon-box blue">✂</div>
+            <h3>Split PDF</h3>
+            <p>Extract pages into separate files.</p>
+        </div>
     </section>
-    <main class="container">
-      <div class="tool-card">
-        <h2 style="color: var(--accent); letter-spacing: 3px">
-          UNIFIED TRANSMUTER
-        </h2>
-        <p style="font-size: 0.8rem; color: #888">
-          LOAD MATTER > SELECT STATE > EXECUTE
-        </p>
 
-        <!-- (Your Form Here) -->
-      </div>
-
-      <div class="system-logs">
-        <div>> NODE: POTCH_01</div>
-        <div>> STATUS: OPTIMAL</div>
-      </div>
-    </main>
-
-    <footer>
-      <div class="footer-content">
-        <p>&copy; 2026 Aether Engine | Built by an IT Student @ EDUVOS</p>
-        <div class="donation-link">
-          <a
-            href="https://www.buymeacoffee.com/yourlink"
-            target="_blank"
-            class="coffee-btn"
-            >☕ Buy me a $1 Coffee</a
-          >
-        </div>
-      </div>
+    <footer class="minimal-footer">
+        <p>© 2026 Aether Engine | Built by an IT Student @ EDUVOS</p>
+        <a href="#" class="coffee-link">☕ Buy me a $1 Coffee</a>
     </footer>
-  </body>
+
+</body>
 </html>

@@ -1,76 +1,139 @@
 :root {
-    --bg-color: #050505;
-    --card-bg: #0d0d0f;
-    --accent: #00ff9d;
-    --text-main: #ffffff;
+    --bg-dark: #000000;
+    --card-bg: #111111;
+    --accent-red: #ff4d4d;
+    --text-gray: #888888;
+    --nav-bg: rgba(20, 20, 20, 0.8);
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: 'Courier New', monospace;
+    background-color: var(--bg-dark);
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     margin: 0;
+    padding-top: 100px; /* Space for floating nav */
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-}
-
-/* The Card */
-.tool-card {
-    background: var(--card-bg);
-    border: 1px solid var(--accent);
-    padding: 40px;
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
-}
-
-/* Force Dark Inputs */
-input[type="file"], .tactical-select {
-    width: 100%;
-    background: #000;
+/* FLOATING NAV */
+.floating-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
     border: 1px solid #333;
-    color: var(--accent);
-    padding: 10px;
-    margin-top: 10px;
-    font-family: 'Courier New', monospace;
+    border-radius: 50px;
+    padding: 10px 25px;
+    z-index: 1000;
 }
 
-/* Style the "Choose File" button specifically */
-input[type="file"]::file-selector-button {
-    background: #111;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 5px 10px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.7rem;
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Execute Button */
-.btn-execute {
-    width: 100%;
-    margin-top: 30px;
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 15px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    cursor: pointer;
+.nav-logo { font-weight: 800; font-size: 1.2rem; }
+
+.nav-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9rem;
     transition: 0.3s;
 }
 
-.btn-execute:hover {
-    background: var(--accent);
-    color: #000;
+.nav-links a:hover { color: white; }
+
+.nav-btn-github {
+    background: #222;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+    border: 1px solid #444;
 }
 
-/* Diagnostics at bottom */
-.system-logs {
-    margin-top: 30px;
-    font-size: 0.7rem;
-    color: #444;
-    text-transform: uppercase;
+/* HERO SECTION */
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
 }
+
+.badge {
+    background: #1a1a1a;
+    color: #00ff9d;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+h1 { font-size: 3.5rem; margin-bottom: 0; }
+.highlight { color: var(--accent-red); }
+h2 { font-size: 2.5rem; margin-top: 0; color: #eee; }
+.hero-subtext { color: var(--text-gray); max-width: 600px; margin: 20px auto; line-height: 1.6; }
+
+/* GRID LAYOUT */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.tool-card {
+    background: var(--card-bg);
+    border: 1px solid #222;
+    padding: 25px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.tool-card:hover { border-color: #444; transform: translateY(-5px); }
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* FORM STYLING */
+.file-input, .dropdown-select {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.execute-btn {
+    width: 100%;
+    background: white;
+    color: black;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.execute-btn:hover { background: #ddd; }
+
+.disabled { opacity: 0.5; cursor: not-allowed; }
