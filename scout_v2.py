@@ -94,3 +94,28 @@ if __name__ == "__main__":
         run_digest()
         # We wait 1 hour between "Deep Searches" to keep the IP safe
         time.sleep(3600)
+
+        from ntscraper import Nitter
+
+def scan_x():
+    print(f"[{time.strftime('%H:%M:%S')}] Aether Engine: Scouting X (Twitter) for leads...")
+    scraper = Nitter()
+    
+    # We pick one high-value term at a time to stay under the radar
+    search_term = "convert pdf help" 
+    
+    try:
+        # 'term' is the search, 'mode' is trend/hashtag/term, 'number' is how many tweets
+        tweets = scraper.get_tweets(search_term, mode='term', number=5)
+        
+        for tweet in tweets['tweets']:
+            link = tweet['link']
+            text = tweet['text']
+            
+            # Check if any of your keywords are in the tweet
+            if any(key in text.lower() for key in KEYWORDS):
+                print(f" [+] X Match found: {text[:50]}...")
+                alert_discord(f"X LEAD: {text[:100]}", link)
+                
+    except Exception as e:
+        print(f" [X] X Scouting Error: {e}")
