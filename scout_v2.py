@@ -59,35 +59,34 @@ def scan_reddit():
 
 def scan_x():
     print(f"[{time.strftime('%H:%M:%S')}] X: Scouting for Twitter leads...")
-    # Add a fallback instance list if the automatic one fails
-    scraper = Nitter()
+    # Manually try a known stable instance
+    scraper = Nitter(instances=["https://nitter.net", "https://nitter.cz", "https://nitter.privacydev.net"])
     
-    search_term = "need to convert pdf" 
+    # Using a broader search to catch more "fish"
+    search_term = "convert pdf OR 'png to jpg'" 
     
     try:
-        # We tell ntscraper to try multiple instances if the first one fails
-        tweets = scraper.get_tweets(search_term, mode='term', number=5)
+        # We decrease the number to 3 to stay under the radar
+        tweets = scraper.get_tweets(search_term, mode='term', number=3)
         
-        # Check if we actually got a dictionary with tweets back
         if tweets and 'tweets' in tweets:
             for tweet in tweets['tweets']:
                 text = tweet['text'].lower()
+                # Check against your KEYWORDS list
                 if any(key in text for key in KEYWORDS):
+                    print(f" [+] X Match found: {text[:50]}")
                     alert_discord("X/Twitter", text[:50], tweet['link'])
         else:
-            print(" [!] X: No tweets found in this cycle.")
+            print(" [!] X: No relevant tweets found this cycle.")
             
-    except IndexError:
-        print(" [!] X Error: No working Nitter instances found. X is tightening security.")
     except Exception as e:
-        print(f" [!] X Error: {e}")
+        print(f" [!] X Error: Instance probably blocked. Switching tactics...")
 
 if __name__ == "__main__":
     while True:
         scan_reddit()
-        # Only scan X every few hours to avoid IP blocks from Nitter instances
-        if random.random() > 0.7: 
-            scan_x()
+        # Force the X scan to run every cycle instead of randomly
+        scan_x() 
             
         print(f"[{time.strftime('%H:%M:%S')}] Cycle complete. Sleeping for 1 hour...")
         time.sleep(3600)
